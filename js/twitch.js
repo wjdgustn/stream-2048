@@ -1,8 +1,9 @@
+let chat;
 const channel = location.hash.slice(1);
-const chat = new WebSocket('wss://irc-ws.chat.twitch.tv');
+if(!channel) alert('채널 이름이 누락되었습니다. URL 뒤에 #채널명 을 붙여주세요.');
+else chat = new WebSocket('wss://irc-ws.chat.twitch.tv');
 
 chat.onopen = async () => {
-
     chat.send(`PASS SCHMOOPIIE`);
     chat.send(`NICK justinfan1234`);
     chat.send(`USER justinfan1234 8 * :justinfan1234`);
