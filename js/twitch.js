@@ -16,7 +16,7 @@ chat.onopen = async () => {
 chat.onmessage = async ev => {
     const data = ev.data;
 
-    if(data.startsWith('PING')) return ws.send('PONG :tmi.twitch.tv');
+    if(data.startsWith('PING')) return chat.send('PONG');
     if(!data.includes('PRIVMSG')) return;
 
     const text = data.split('PRIVMSG ')[1].split(':')[1].trim();
