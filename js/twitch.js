@@ -16,25 +16,25 @@ chat.onopen = async () => {
 chat.onmessage = async ev => {
     const data = ev.data;
 
-    if(data.startsWith('PING')) return ws.send('PONG');
+    if(data.startsWith('PING')) return ws.send('PONG :tmi.twitch.tv');
     if(!data.includes('PRIVMSG')) return;
 
     const text = data.split('PRIVMSG ')[1].split(':')[1].trim();
 
     switch(text) {
-        case 'u':
+        case 'w':
         case 'up':
             fakeKey(38);
             break;
-        case 'd':
+        case 's':
         case 'down':
             fakeKey(40);
             break;
-        case 'l':
+        case 'a':
         case 'left':
             fakeKey(37);
             break;
-        case 'r':
+        case 'd':
         case 'right':
             fakeKey(39);
             break;
