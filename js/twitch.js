@@ -1,10 +1,10 @@
+let config;
 const chat = new WebSocket('wss://irc-ws.chat.twitch.tv');
 
 chat.onopen = async () => {
     let config_req = await fetch('config.json');
-    const config = JSON.parse(await config_req.text());
+    config = JSON.parse(await config_req.text());
 
-    // chat.send(`CAP REQ :twitch.tv/tags`);
     chat.send(`PASS SCHMOOPIIE`);
     chat.send(`NICK justinfan1234`);
     chat.send(`USER justinfan1234 8 * :justinfan1234`);
@@ -37,6 +37,9 @@ chat.onmessage = async ev => {
         case 'r':
         case 'right':
             fakeKey(39);
+            break;
+        case 'reset':
+            if(data.startsWith(`:${config.channel}`)) fakeKey(82);
             break;
     }
 }
