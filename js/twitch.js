@@ -1,16 +1,14 @@
-let config;
+const channel = location.hash.slice(1);
 const chat = new WebSocket('wss://irc-ws.chat.twitch.tv');
 
 chat.onopen = async () => {
-    let config_req = await fetch('config.json');
-    config = JSON.parse(await config_req.text());
 
     chat.send(`PASS SCHMOOPIIE`);
     chat.send(`NICK justinfan1234`);
     chat.send(`USER justinfan1234 8 * :justinfan1234`);
-    chat.send(`join #${config.channel}`);
+    chat.send(`join #${channel}`);
 
-    console.log(`Joined ${config.channel}`);
+    console.log(`Joined ${channel}`);
 }
 
 chat.onmessage = async ev => {
@@ -26,12 +24,16 @@ chat.onmessage = async ev => {
         case 'ㅈ':
         case 'up':
         case 'ㅕㅔ':
+        case '위':
+        case '8':
             fakeKey(38);
             break;
         case 's':
         case 'ㄴ':
         case 'down':
         case '애주':
+        case '아래':
+        case '2':
             fakeKey(40);
             break;
         case 'a':
@@ -39,17 +41,21 @@ chat.onmessage = async ev => {
         case 'left':
         case 'ㅣㄷㄽ':
         case 'ㅣㄷㄹㅅ':
+        case '왼쪽':
+        case '4':
             fakeKey(37);
             break;
         case 'd':
         case 'ㅇ':
         case 'right':
         case '갸홋':
+        case '오른쪽':
+        case '6':
             fakeKey(39);
             break;
         case 'reset':
         case 'ㄱㄷㄴㄷㅅ':
-            if(data.startsWith(`:${config.channel}`)) fakeKey(82);
+            if(data.startsWith(`:${channel}`)) fakeKey(82);
             break;
     }
 }
