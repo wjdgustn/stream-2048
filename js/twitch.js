@@ -23,22 +23,32 @@ chat.onmessage = async ev => {
 
     switch(text) {
         case 'w':
+        case 'ㅈ':
         case 'up':
+        case 'ㅕㅔ':
             fakeKey(38);
             break;
         case 's':
+        case 'ㄴ':
         case 'down':
+        case '애주':
             fakeKey(40);
             break;
         case 'a':
+        case 'ㅁ':
         case 'left':
+        case 'ㅣㄷㄽ':
+        case 'ㅣㄷㄹㅅ':
             fakeKey(37);
             break;
         case 'd':
+        case 'ㅇ':
         case 'right':
+        case '갸홋':
             fakeKey(39);
             break;
         case 'reset':
+        case 'ㄱㄷㄴㄷㅅ':
             if(data.startsWith(`:${config.channel}`)) fakeKey(82);
             break;
     }
