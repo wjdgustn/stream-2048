@@ -19,9 +19,9 @@ chat.onmessage = async ev => {
     if(data.startsWith('PING')) return ws.send('PONG');
     if(!data.includes('PRIVMSG')) return;
 
-    const chat = data.split('PRIVMSG ')[1].split(':')[1];
+    const text = data.split('PRIVMSG ')[1].split(':')[1].trim();
 
-    switch(chat) {
+    switch(text) {
         case 'u':
         case 'up':
             fakeKey(38);
