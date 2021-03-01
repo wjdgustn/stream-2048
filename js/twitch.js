@@ -56,7 +56,8 @@ chat.onmessage = async ev => {
             break;
         case 'reset':
         case 'ㄱㄷㄴㄷㅅ':
-            if(data.startsWith(`:${channel}`)) fakeKey(82);
+            console.log(data);
+            if(data.startsWith(`:${channel}!`)) fakeKey(82);
             break;
     }
 }
