@@ -20,10 +20,10 @@ chat.onmessage = async ev => {
 
     const text = data.split('PRIVMSG ')[1].split(':')[1].trim();
 
-    if(text.length == 1) run(text, channel, data);
-    else if(text.startsWith(``)) {
+    if(text.startsWith(``)) {
         text.slice(1).split('').forEach(t => run(t));
     }
+    else run(text, channel, data);
 }
 
 function fakeKey(key) {
