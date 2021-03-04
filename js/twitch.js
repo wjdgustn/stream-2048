@@ -20,6 +20,26 @@ chat.onmessage = async ev => {
 
     const text = data.split('PRIVMSG ')[1].split(':')[1].trim();
 
+    if(text.length == 1) run(text, channel, data);
+    else if(text.startsWith(``)) {
+        text.slice(1).split('').forEach(t => run(t));
+    }
+}
+
+function fakeKey(key) {
+    document.dispatchEvent(
+        new KeyboardEvent("keydown", {
+            keyCode: key
+        })
+    );
+    document.dispatchEvent(
+        new KeyboardEvent("keyup", {
+            keyCode: key
+        })
+    );
+}
+
+function run(text, channel, data) {
     switch(text) {
         case 'w':
         case 'ㅈ':
@@ -56,21 +76,7 @@ chat.onmessage = async ev => {
             break;
         case 'reset':
         case 'ㄱㄷㄴㄷㅅ':
-            console.log(data);
             if(data.startsWith(`:${channel}!`)) fakeKey(82);
             break;
     }
-}
-
-function fakeKey(key) {
-    document.dispatchEvent(
-        new KeyboardEvent("keydown", {
-            keyCode: key
-        })
-    );
-    document.dispatchEvent(
-        new KeyboardEvent("keyup", {
-            keyCode: key
-        })
-    );
 }
