@@ -20,26 +20,32 @@ chat.onmessage = async ev => {
 
     const text = data.split('PRIVMSG ')[1].split(':')[1].trim();
 
-    if(text.startsWith(``)) {
-        text.slice(1).split('').forEach(t => run(t));
+    if(text.startsWith('`')) {
+        let time = 0;
+
+        for(let t of text.slice(1).split('')) {
+            if(run(t, channel, data, time)) time += 200;
+        }
     }
     else run(text, channel, data);
 }
 
-function fakeKey(key) {
-    document.dispatchEvent(
-        new KeyboardEvent("keydown", {
-            keyCode: key
-        })
-    );
-    document.dispatchEvent(
-        new KeyboardEvent("keyup", {
-            keyCode: key
-        })
-    );
+function fakeKey(key, time) {
+    setTimeout(() => {
+        document.dispatchEvent(
+            new KeyboardEvent("keydown", {
+                keyCode: key
+            })
+        );
+        document.dispatchEvent(
+            new KeyboardEvent("keyup", {
+                keyCode: key
+            })
+        );
+    }, time);
 }
 
-function run(text, channel, data) {
+function run(text, channel, data, time) {
     switch(text) {
         case 'w':
         case 'ㅈ':
@@ -47,16 +53,16 @@ function run(text, channel, data) {
         case 'ㅕㅔ':
         case '위':
         case '8':
-            fakeKey(38);
-            break;
+            fakeKey(38, (time || 0));
+            return true;
         case 's':
         case 'ㄴ':
         case 'down':
         case '애주':
         case '아래':
         case '2':
-            fakeKey(40);
-            break;
+            fakeKey(40, (time || 0));
+            return true;
         case 'a':
         case 'ㅁ':
         case 'left':
@@ -64,19 +70,21 @@ function run(text, channel, data) {
         case 'ㅣㄷㄹㅅ':
         case '왼쪽':
         case '4':
-            fakeKey(37);
-            break;
+            fakeKey(37, (time || 0));
+            return true;
         case 'd':
         case 'ㅇ':
         case 'right':
         case '갸홋':
         case '오른쪽':
         case '6':
-            fakeKey(39);
-            break;
+            fakeKey(39, (time || 0));
+            return true;
         case 'reset':
         case 'ㄱㄷㄴㄷㅅ':
-            if(data.startsWith(`:${channel}!`)) fakeKey(82);
-            break;
+            if(data.startsWith(`:${channel}!`)) fakeKey(82, (time || 0));
+            return true;
+        default:
+            return false;
     }
 }
